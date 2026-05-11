@@ -1,0 +1,51 @@
+{
+  "restaurant_name": "Spice Garden",
+  "timings": "10 AM to 11 PM",
+  "delivery": true,
+  "menu": [
+    {
+      "name": "Paneer Pizza",
+      "price": 299,
+      "category": "veg",
+      "type": "spicy"
+    },
+    {
+      "name": "Veg Burger",
+      "price": 149,
+      "category": "veg",
+      "type": "normal"
+    },
+    {
+      "name": "Chicken Pasta",
+      "price": 249,
+      "category": "non-veg",
+      "type": "spicy"
+    },
+    {
+      "name": "Cold Coffee",
+      "price": 99,
+      "category": "drink",
+      "type": "cold"
+    },
+    {
+      "name": "Mojito",
+      "price": 129,
+      "category": "drink",
+      "type": "cold"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Do you offer delivery?",
+      "answer": "Yes 😊 We offer home delivery."
+    },
+    {
+      "question": "Do you have veg options?",
+      "answer": "Yes 😊 We have many veg dishes."
+    },
+    {
+      "question": "Do you take table bookings?",
+      "answer": "Yes 😊 You can reserve tables."
+    }
+  ]
+}
