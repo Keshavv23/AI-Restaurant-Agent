@@ -1,3 +1,6 @@
+import subprocess
+import sys
+subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"])
 import smtplib
 from email.mime.text import MIMEText
 import gspread
@@ -71,19 +74,19 @@ with open("data/restaurant_data.json", "r") as file:
 # GOOGLE SHEETS SETUP
 # =========================
 
-scope = [
-    "https://spreadsheets.google.com/feeds",
-    "https://www.googleapis.com/auth/drive"
-]
+# scope = [
+#     "https://spreadsheets.google.com/feeds",
+#     "https://www.googleapis.com/auth/drive"
+# ]
 
-creds = ServiceAccountCredentials.from_json_keyfile_name(
-    "credentials.json",
-    scope
-)
+# creds = ServiceAccountCredentials.from_json_keyfile_name(
+#     "credentials.json",
+#     scope
+# )
 
-client = gspread.authorize(creds)
+# client = gspread.authorize(creds)
 
-sheet = client.open("Restaurant Bookings").sheet1
+# sheet = client.open("Restaurant Bookings").sheet1
 
 # =========================
 # TEMP BOOKING MEMORY
@@ -251,14 +254,14 @@ Thank you for choosing Spice Garden 🍕
 
             send_telegram_message(telegram_message)
 
-            # SAVE TO GOOGLE SHEETS
-            sheet.append_row([
-                session["name"],
-                session["phone"],
-                session["email"],
-                session["guests"],
-                session["time"]
-            ])
+            # # SAVE TO GOOGLE SHEETS
+            # sheet.append_row([
+            #     session["name"],
+            #     session["phone"],
+            #     session["email"],
+            #     session["guests"],
+            #     session["time"]
+            # ])
 
             # CONFIRMATION
             confirmation = f"""
