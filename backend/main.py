@@ -1,10 +1,5 @@
-import subprocess
-import sys
-subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"])
 import smtplib
 from email.mime.text import MIMEText
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
