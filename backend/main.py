@@ -110,20 +110,36 @@ def send_telegram_message(message):
 
 def send_email(to_email, subject, body):
 
-    msg = MIMEText(body)
+    try:
 
-    msg["Subject"] = subject
-    msg["From"] = EMAIL_ADDRESS
-    msg["To"] = to_email
+        response = requests.post(
 
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+            "https://api.resend.com/emails",
 
-        server.login(
-            EMAIL_ADDRESS,
-            EMAIL_PASSWORD
+            headers={
+                "Authorization": f"Bearer {os.getenv('RESEND_API_KEY')}",
+                "Content-Type": "application/json"
+            },
+
+            json={
+
+                "from": "onboarding@resend.dev",
+
+                "to": to_email,
+
+                "subject": subject,
+
+                "html": f"<p>{body}</p>"
+
+            }
+
         )
 
-        server.send_message(msg)
+        print(response.json())
+
+    except Exception as e:
+
+        print("Email Error:", e)
 
 # =========================
 # HOME ROUTE
