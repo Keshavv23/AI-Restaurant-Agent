@@ -45,7 +45,7 @@ function App() {
     try {
 
       const response = await axios.post(
-        "https://ai-restaurant-agent-production.up.railway.app/chat",
+        "https://ai-restaurant-agent-lsd4.onrender.com/chat",
         {
           message: currentInput
         }
