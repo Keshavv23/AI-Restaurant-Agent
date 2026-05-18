@@ -6,6 +6,7 @@ from pydantic import BaseModel
 import requests
 import json
 from dotenv import load_dotenv
+from fastapi import Request
 import os
 
 # Load environment variables
@@ -38,6 +39,12 @@ EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 # =========================
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+
+# =========================
+# webhook
+# =========================
+
+VERIFY_TOKEN = "restaurant_ai_bot"
 
 # =========================
 # ENABLE CORS
@@ -104,6 +111,33 @@ def send_telegram_message(message):
 
     requests.post(url, data=payload)
 
+# =========================
+# webhook function 
+# =========================
+
+@app.get("/webhook")
+async def verify_webhook(request: Request):
+
+    mode = request.query_params.get("hub.mode")
+    token = request.query_params.get("hub.verify_token")
+    challenge = request.query_params.get("hub.challenge")
+
+    if mode and token:
+
+        if mode == "subscribe" and token == VERIFY_TOKEN:
+            return int(challenge)
+
+    return {"error": "Verification failed"}
+
+
+@app.post("/webhook")
+async def whatsapp_webhook(request: Request):
+
+    data = await request.json()
+
+    print(data)
+
+    return {"status": "received"}
 # =========================
 # EMAIL FUNCTION
 # =========================
