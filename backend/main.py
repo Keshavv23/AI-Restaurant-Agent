@@ -18,6 +18,32 @@ load_dotenv()
 
 app = FastAPI()
 
+VERIFY_TOKEN = "restaurant_ai_bot"
+
+
+@app.get("/webhook")
+async def verify_webhook(request: Request):
+
+    mode = request.query_params.get("hub.mode")
+    token = request.query_params.get("hub.verify_token")
+    challenge = request.query_params.get("hub.challenge")
+
+    if mode and token:
+
+        if mode == "subscribe" and token == VERIFY_TOKEN:
+            return int(challenge)
+
+    return {"message": "Webhook route working"}
+
+
+@app.post("/webhook")
+async def whatsapp_webhook(request: Request):
+
+    data = await request.json()
+
+    print(data)
+
+    return {"status": "received"}
 # =========================
 # TELEGRAM CONFIG
 # =========================
@@ -111,33 +137,6 @@ def send_telegram_message(message):
 
     requests.post(url, data=payload)
 
-# =========================
-# webhook function 
-# =========================
-
-@app.get("/webhook")
-async def verify_webhook(request: Request):
-
-    mode = request.query_params.get("hub.mode")
-    token = request.query_params.get("hub.verify_token")
-    challenge = request.query_params.get("hub.challenge")
-
-    if mode and token:
-
-        if mode == "subscribe" and token == VERIFY_TOKEN:
-            return int(challenge)
-
-    return {"error": "Verification failed"}
-
-
-@app.post("/webhook")
-async def whatsapp_webhook(request: Request):
-
-    data = await request.json()
-
-    print(data)
-
-    return {"status": "received"}
 # =========================
 # EMAIL FUNCTION
 # =========================
